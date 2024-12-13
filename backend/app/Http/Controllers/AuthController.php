@@ -22,10 +22,10 @@ class AuthController extends Controller
     {
         $validatedRequest = $request->validated();
         if (!Auth::attempt([
-            'email' => $validatedRequest['email'],
+            'email' => $validatedRequest['id'],
             'password' => $validatedRequest['password']
         ]) && !Auth::attempt([
-            'username' => $validatedRequest['username'],
+            'username' => $validatedRequest['id'],
             'password' => $validatedRequest['password']
         ])) {
             return response()->json(['msg' => 'Invalid Credentials'], 401);
