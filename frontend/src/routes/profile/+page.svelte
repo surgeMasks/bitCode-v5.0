@@ -1,13 +1,10 @@
 <script lang="ts">
-    // import { fetchMyProfile } from "$lib/handlers/fetchHandlers";
+    import { fetchMyProfile } from "$lib/handlers/fetchHandlers";
     import { updateMyProfile, updatePassword} from "$lib/handlers/updateHandlers";
     import { onMount } from "svelte";
     import UpdatePasswordForm from "$lib/components/profile/updateForm.svelte";
     import ProfileDeleteModel from "$lib/components/profile/deleteForm.svelte";
-    // import api from '$lib/apis/public';
-    // import dashapi from '$lib/apis/dashboard';
-    // import pendingImage from '$lib/images/icons/pending.svg';
-    // import UploadSlip from "$lib/pages/UploadSlip.svelte";
+    // import api from '$lib/apis/profile';
     import Loading from "$lib/components/ui/loading.svelte";
   
     import { fade, slide } from "svelte/transition";
@@ -15,9 +12,8 @@
     import { cubicInOut } from "svelte/easing";
     // import { Spinner } from "flowbite-svelte";
     // import { Alert } from '$stores/globalStore';
-    // import { goto } from "$app/navigation";
-    // import apiAuth from '$lib/apis/auth';
-  
+    import { goto } from "$app/navigation";
+    import apiAuth from '$lib/apis/auth';
   
     let profile: { full_name: any; email: any; user_name:any; university: any; uni_reg_number: any };
   
@@ -39,8 +35,8 @@
   
     async function loadProfile() {
       isLoading = true;
-    //   const new_profile = await fetchMyProfile();
-      const new_profile = {full_name: 'Tharusha', email: 'tharusha@gmail.com', user_name: 'TheNobleStag', university: 'UOM', uni_reg_number: '200073D'}
+      const new_profile = await fetchMyProfile();
+      //const new_profile = {full_name: 'Tharusha', email: 'tharusha@gmail.com', user_name: 'TheNobleStag', university: 'UOM', uni_reg_number: '200073D'}
   
       profile = { ...new_profile };
 
@@ -80,7 +76,7 @@
         }
   
         if (Object.keys(changedFields).length > 0) {
-        //   await updateMyProfile(changedFields);
+          await updateMyProfile(changedFields);
   
           await loadProfile(); // Reload profile after updating
           isProfileChanged = false; // Reset flag after updating
@@ -124,16 +120,16 @@
     async function handleLogout() {
           try {
               // Send logout signal to backend
-            //   const response = await apiAuth.logout();
+              const response = await apiAuth.logout();
   
-            //   if (response.ok) {
-            //       // If logout was successful, redirect the user to the login page or any other page
-            //       localStorage?.removeItem('token');
-            //       goto("/auth/login"); // Replace '/login' with your desired redirect URL
-            //   } else {
-            //       // Handle error if logout was not successful
-            //       console.error('Logout failed');
-            //   }
+              if (response.ok) {
+                  // If logout was successful, redirect the user to the login page or any other page
+                  localStorage?.removeItem('token');
+                  goto("/auth/login"); // Replace '/login' with your desired redirect URL
+              } else {
+                  // Handle error if logout was not successful
+                  console.error('Logout failed');
+              }
           } catch (error) {
               console.error('Error during logout:', error);
           }

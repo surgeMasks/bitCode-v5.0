@@ -10,6 +10,7 @@ interface regData {
     university_id: string;
     password_confirmation: string;
 }
+
 const api = {
   
   // Login function

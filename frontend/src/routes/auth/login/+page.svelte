@@ -25,7 +25,7 @@
         const response = await api.login(username, password);
         console.log('Login response:', response);
 
-        goto('/dashboard');
+        goto('/profile');
         showToast("Login successful!", "success");
       } else {
         throw new Error("Both username and password are required.");
