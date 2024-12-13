@@ -38,22 +38,17 @@ class CheckoutController extends Controller
 
 public function success(Request $request)
 {
-    // Your secret key
-    $stripeSecretKey = env('STRIPE_SECRET_KEY');
+    $stripeSecretKey = env('STRIPE_SECRET');
     Stripe::setApiKey($stripeSecretKey);
 
-    // The endpoint secret from your Stripe Dashboard
-    $endpointSecret = env('STRIPE_WEBHOOK_SECRET');
+    $endpointSecret = env('whsec_9EPj6PcclCkYP4QjYlHhvJQrQal5J69k');
 
-    // Retrieve the request payload
     $payload = $request->getContent();
     $sigHeader = $request->header('Stripe-Signature');
 
-    // Initialize event variable
     $event = null;
 
     try {
-        // Verify the event with the signature
         $event = Webhook::constructEvent(
             $payload, $sigHeader, $endpointSecret
         );
