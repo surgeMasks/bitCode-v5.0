@@ -25,7 +25,7 @@
         const response = await api.login(username, password);
         console.log('Login response:', response);
         localStorage.setItem('token', response.token);
-        goto('/profile');
+        goto('/dashboard/marketplace');
         showToast("Login successful!", "success");
       } else {
         throw new Error("Both username and password are required.");
