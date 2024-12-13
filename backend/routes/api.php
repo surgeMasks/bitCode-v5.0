@@ -21,9 +21,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::controller(UserController::class)->group(function() {
             Route::get('/user', 'show');
             Route::put('/user', 'update');
-            Route::patch('/user', 'updatePassword');
+            Route::patch('/user', 'patch');
             Route::post('/user/delete', 'destroy');
-
-            Route::post('/user/id', 'storeId');
         });
 });
