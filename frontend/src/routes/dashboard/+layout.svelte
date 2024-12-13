@@ -1,10 +1,8 @@
 <script>
-    import CheckoutButton from "$lib/components/Payment.svelte";
-
     let menuItems = [
         { name: "Posts", link: "/dashboard/posts" },
         { name: "MarketPlace", link: "/dashboard/marketplace" },
-        { name: "Profile", link: "/dashboard/profile" },
+        { name: "Profile", link: "/profile" },
         { name: "Logout", link: "/dashboard/auth/logout" }
     ];
 
@@ -19,159 +17,83 @@
 </script>
 
 <style>
-  /* General Styling */
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f3f4f6; /* Light gray background */
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #1f2937; /* Gray-900 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: white;
-  }
-
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #10b981; /* Emerald-500 */
-  }
-
-  nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav ul li {
-    margin-right: 1.5rem;
-    font-size: 1rem;
-  }
-
-  nav ul li a {
-    text-decoration: none;
-    color: white;
-    transition: color 0.3s ease;
-  }
-
-  nav ul li a:hover {
-    color: #10b981; /* Emerald-500 */
-  }
-
-  .icons {
-    display: flex;
-    align-items: center;
-  }
-
-  .icons i {
-    font-size: 1.5rem;
-    margin-left: 1rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-
-  .icons i:hover {
-    color: #10b981; /* Emerald-500 */
-  }
-
-  .about-section {
-    padding: 3rem 1rem;
-    text-align: center;
-    background-color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .about-section h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #1f2937; /* Gray-900 */
-  }
-
-  .about-section p {
-    font-size: 1.2rem;
-    line-height: 1.5;
-    color: #6b7280; /* Gray-600 */
-  }
-
-  .content {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    text-align: left;
-  }
-
-  .content h2 {
-    font-size: 2rem;
-    color: #10b981; /* Emerald-500 */
-    margin-bottom: 1rem;
-  }
-
-  .content p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-    color: #374151; /* Gray-800 */
-  }
-
-  .content img {
-    width: 100%;
-    border-radius: 8px;
-    margin-top: 1.5rem;
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 60vh;
-    background-color: white;
-    padding: 2rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin: 2rem auto;
-    max-width: 600px;
-  }
-
-  .container h1 {
-    font-size: 2rem;
-    color: #1f2937; /* Gray-900 */
-    margin-bottom: 1rem;
-  }
-
-  .container p {
-    color: #6b7280; /* Gray-600 */
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-
-  button {
-    background-color: #10b981; /* Emerald-500 */
-    color: white;
-    font-size: 1.2rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #059669; /* Emerald-600 */
-  }
-
-  button:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3); /* Emerald-500 */
-  }
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #f8f8f8;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+      font-size: 1.5rem;
+      color: #1e7e34;
+      font-weight: bold;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      margin-right: 1.5rem;
+      font-size: 1rem;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    .icons {
+      display: flex;
+      align-items: center;
+    }
+    .icons i {
+      font-size: 1.5rem;
+      margin-left: 1rem;
+      cursor: pointer;
+    }
+    .about-section {
+      padding: 2rem;
+      text-align: center;
+      background-color: #fefefe;
+    }
+    .about-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .about-section p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .content h2 {
+      font-size: 2rem;
+      color: #1e7e34;
+      margin-bottom: 1rem;
+    }
+    .content p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .content img {
+      width: 100%;
+      border-radius: 8px;
+    }
 </style>
 
 <header>
@@ -203,12 +125,6 @@
       Our integration with Stripe allows you to focus on what matters most - your projects. Whether you're buying or selling, Stripe makes the process smooth and efficient.
     </p>
 </div>
-
-<div class="container">
-  <h1>Complete Your Payment</h1>
-  <p>Click the button below to proceed with your payment.</p>
-  <CheckoutButton />
-</div>  
 
 <!-- Add the slot here -->
 <slot></slot>

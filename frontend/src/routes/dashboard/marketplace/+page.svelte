@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CheckoutButton from "$lib/components/Payment.svelte";
   import { onMount } from 'svelte';
   import api from '$lib/apis/dashboard';
 
@@ -15,12 +16,23 @@
 
   // Fetch projects from your API
   onMount(async () => {
-    const response = await api.getProjects();
-    if (response.ok) {
-      projects = await response.json();
-      console.log(projects);
-    } else {
-      console.error('Failed to fetch projects');
+    try {
+      const response = await api.getProjects(); // Fetch data from the API
+      if (response) {
+        // Map the API response to match the `projects` structure
+        projects = response.map((project: any) => ({
+          id: project.id,
+          image_path: project.image, // Map `image` to `image_path`
+          title: project.title,
+          description: project.description,
+          price: parseFloat(project.price), // Convert `price` from string to number
+        }));
+        console.log('Mapped Projects:', projects);
+      } else {
+        console.error('Failed to fetch projects');
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
     }
   });
 
@@ -198,4 +210,15 @@
       </div>
     {/each}
   </div>
+  <div class="container mx-auto mt-10 max-w-4xl bg-white shadow-lg rounded-lg p-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+      Complete Your Payment
+    </h1>
+    <p class="text-gray-600 text-lg mb-6 text-center">
+      Click the button below to proceed with your payment.
+    </p>
+    <div class="flex justify-center">
+      <CheckoutButton />
+    </div>
+  </div>  
 </main>
