@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->decimal('price', 8, 2);
-            $table->string('image')->nullable();
+            $table->string('image_path')->nullable();
             $table->string('file_path');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
