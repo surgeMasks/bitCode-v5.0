@@ -1,6 +1,7 @@
 <script lang="ts">
   import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
   import api from "$lib/apis/auth";
+  import { goto } from "$app/navigation";
 
   let fullName = '';
   let userName = '';
@@ -39,7 +40,10 @@
         if (response.status === 200) {
           showToast("Registration successful!", "success");
           // Redirect to another page (e.g., login page)
-          // goto('/login'); // Uncomment if you're using $app/navigation
+          goto('/auth/login');
+          const responseData = await response.json();
+          localStorage.setItem('token', responseData.token);
+          goto('/dashboard');
         } else {
           const errorData = await response.json();
           throw new Error(errorData.message || "Registration failed.");
