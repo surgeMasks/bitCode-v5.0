@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PurchaseStatusEnum;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -38,14 +40,18 @@ class CheckoutController extends Controller
 
 public function success(Request $request)
 {
+    // Your secret key
     $stripeSecretKey = env('STRIPE_SECRET');
     Stripe::setApiKey($stripeSecretKey);
 
-    $endpointSecret = env('whsec_9EPj6PcclCkYP4QjYlHhvJQrQal5J69k');
+    // The endpoint secret from your Stripe Dashboard
+    $endpointSecret = env('STRIPE_WEBHOOK');
 
+    // Retrieve the request payload
     $payload = $request->getContent();
     $sigHeader = $request->header('Stripe-Signature');
 
+    // Initialize event variable
     $event = null;
 
     try {
@@ -53,13 +59,11 @@ public function success(Request $request)
             $payload, $sigHeader, $endpointSecret
         );
     } catch (SignatureVerificationException $e) {
-        // Invalid signature, log the error
         Log::error('Webhook signature verification failed: ' . $e->getMessage());
-        return response('Signature verification failed', 400);
+        // return response('Signature verification failed', 400);
     } catch (\UnexpectedValueException $e) {
-        // Invalid payload
         Log::error('Webhook error while parsing basic request: ' . $e->getMessage());
-        return response('Invalid payload', 400);
+        // return response('Invalid payload', 400);
     }
 
     // Log the event for debugging
@@ -68,19 +72,20 @@ public function success(Request $request)
     // Handle the event
     switch ($event->type) {
         case 'payment_intent.succeeded':
-            $paymentIntent = $event->data->object; // Contains a \Stripe\PaymentIntent
+            $paymentIntent = $event->data->object;
+            // $payment = Purchase::where('payment_id', $paymentIntent->id)->first();
+            // $payment->status = PurchaseStatusEnum::ONLINE;
             // Handle successful payment intent here
+            Log::info('PaymentIntent was successful: ' . $event);
             Log::info('PaymentIntent was successful: ' . $paymentIntent->id);
             break;
 
         case 'payment_method.attached':
-            $paymentMethod = $event->data->object; // Contains a \Stripe\PaymentMethod
-            // Handle successful attachment of payment method here
+            $paymentMethod = $event->data->object;
             Log::info('PaymentMethod was attached: ' . $paymentMethod->id);
             break;
 
         default:
-            // Unexpected event type
             Log::error('Received unknown event type: ' . $event->type);
     }
 

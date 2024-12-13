@@ -25,7 +25,7 @@ class RegisterUserRequest extends FormRequest
             'full_name' => 'required|string|max:128',
             'email' => 'required|email|unique:users,email|max:128',
             'username' => 'required|string|max:32|unique:users,username',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
             'uni_reg_no' => 'required|string|max:10|unique:users,uni_reg_no',
             'university_id' => 'required|exists:universities,id',
         ];

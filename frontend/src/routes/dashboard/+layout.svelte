@@ -1,5 +1,5 @@
 <script>
-    import CheckoutButton from "$lib/components/Payment.svelte";
+   
 
     let menuItems = [
         { name: "Posts", link: "/dashboard/posts" },
@@ -204,11 +204,7 @@
     </p>
 </div>
 
-<div class="container">
-  <h1>Complete Your Payment</h1>
-  <p>Click the button below to proceed with your payment.</p>
-  <CheckoutButton />
-</div>  
+
 
 <!-- Add the slot here -->
 <slot></slot>

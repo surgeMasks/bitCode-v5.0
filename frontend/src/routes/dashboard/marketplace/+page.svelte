@@ -1,7 +1,9 @@
 <script lang="ts">
+ 
   import { onMount } from 'svelte';
   import api from '$lib/apis/dashboard';
 
+  import check from '$lib/components/payments.svelte'
   let projects: { id: number; image_path: string; title: string; description: string; price: number }[] = [];
 
   let showModal = false;
@@ -198,4 +200,9 @@
       </div>
     {/each}
   </div>
+  <div class="container">
+  <h1>Complete Your Payment</h1>
+  <p>Click the button below to proceed with your payment.</p>
+  <CheckoutButton />
+</div>  
 </main>
