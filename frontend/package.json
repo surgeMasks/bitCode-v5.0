@@ -24,6 +24,7 @@
 	},
 	"dependencies": {
 		"@iconify/svelte": "^4.1.0",
+		"@stripe/stripe-js": "^5.3.0",
 		"flowbite": "^2.5.2",
 		"flowbite-svelte": "^0.47.4",
 		"svelte-toasts": "^1.1.2"
