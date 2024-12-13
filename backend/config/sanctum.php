@@ -47,7 +47,8 @@ return [
     |
     */
 
-    'expiration' => null,
+    // Setting expiraion of token to one week
+    'expiration' => 10080,
 
     /*
     |--------------------------------------------------------------------------
