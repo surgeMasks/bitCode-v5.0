@@ -34,23 +34,23 @@ class ProjectController extends Controller
             'price' => 'required|numeric|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'file' => 'required|file|mimes:rar|max:10240',
-            'user_id' => 'required|exists:users,id',
         ]);
 
        if ($request->hasFile('file')) {
             $file = $validatedRequest['file'];
-            $file_path = $this->saveFile('file', $file, Auth::user()->id);
-            $url = Storage::disk('file')->url($file_path);
+            $file_path = $this->saveFile('files', $file, Auth::user()->id);
+            $url = Storage::disk('files')->url($file_path);
             $validatedRequest['file_path'] = $url;
     }
     if ($request->hasFile('image')) {
         $file = $validatedRequest['image'];
-        $file_path = $this->saveFile('image', $file, Auth::user()->id);
-        $url = Storage::disk('image')->url($file_path);
+        $file_path = $this->saveFile('images', $file, Auth::user()->id);
+        $url = Storage::disk('images')->url($file_path);
         $validatedRequest['image_path'] = $url;
     }
+        unset($validatedRequest['image']);
+        unset($validatedRequest['file']);
         $validatedRequest['user_id'] = Auth::user()->id;
-        print $validatedRequest;
         $project = Project::create($validatedRequest);
 
         return response()->json([
