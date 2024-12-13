@@ -25,10 +25,10 @@ class CheckoutController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => url('/success'),
-            'cancel_url' => url('/cancel'),
+            'success_url' => url('http://localhost:5173/success'),
+            'cancel_url' => url('http://localhost:5173/cancel'),
         ]);
 
-        return response()->json(['id' => $session->id]);
+        return response()->json(['id' => $session->url]);
     }
 }
