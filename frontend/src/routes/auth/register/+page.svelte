@@ -1,5 +1,6 @@
 <script lang="ts">
   import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
+  import api from "$lib/apis/auth";
 
   let fullName = '';
   let userName = '';
@@ -7,6 +8,7 @@
   let university = '';
   let email = '';
   let password = '';
+  let confirmPassword = '';
 
   const showToast = (message: string, type: "success" | "error") => {
     toasts.add({
@@ -21,13 +23,27 @@
 
   const handleRegister = async () => {
     try {
-      // Simulate registration API call
       if (fullName && userName && universityReg && university && email && password) {
-        // Example success case
-        console.log('Registering user:', { fullName, userName, universityReg, university, email, password });
-        showToast("Registration successful!", "success");
-        // Redirect to another page (e.g., login page)
-        // goto('/login'); // Uncomment if you're using $app/navigation
+        const regData = {
+          full_name: fullName,
+          email: email,
+          username: userName,
+          password: password,
+          uni_reg_no: universityReg,
+          university_id: university,
+          password_confirmation: password
+        };
+
+        const response = await api.register(regData);
+
+        if (response.status === 200) {
+          showToast("Registration successful!", "success");
+          // Redirect to another page (e.g., login page)
+          // goto('/login'); // Uncomment if you're using $app/navigation
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Registration failed.");
+        }
       } else {
         throw new Error("Please fill in all fields.");
       }
@@ -108,7 +124,7 @@
       </div>
 
       <!-- Password -->
-      <div class="mb-6">
+      <div class="mb-4">
         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
         <input
           id="password"
@@ -119,6 +135,19 @@
           required
         />
         <small class="text-xs text-gray-500 mt-2">Password must be at least 8 characters, with at least one uppercase letter, one number, and one special character.</small>
+      </div>
+      <!-- Confirm Password -->
+      <div class="mb-4">
+        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          bind:value={confirmPassword}
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Confirm your password"
+          required
+        />
+        <small class="text-xs text-gray-500 mt-2">Please re-enter your password for confirmation.</small>
       </div>
 
       <button

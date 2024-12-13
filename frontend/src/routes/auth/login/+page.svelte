@@ -1,6 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
+  import api from "$lib/apis/auth";
 
   let username = '';
   let password = '';
@@ -21,8 +22,9 @@
     try {
       // Simulate login API call
       if (username && password) {
-        // Example success case
-        console.log('Login submitted:', { username, password });
+        const response = await api.login(username, password);
+        console.log('Login response:', response);
+
         goto('/dashboard');
         showToast("Login successful!", "success");
       } else {
