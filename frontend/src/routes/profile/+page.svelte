@@ -15,9 +15,9 @@
     import { goto } from "$app/navigation";
     import apiAuth from '$lib/apis/auth';
   
-    let profile: { full_name: any; email: any; user_name:any; university: any; uni_reg_number: any };
+    let profile: { full_name: any; email: any; username:any; university_id: any; uni_reg_no: any };
   
-    let originalProfile: { full_name: any; email: any; user_name:any; university: any; uni_reg_number: any };
+    let originalProfile: { full_name: any; email: any; username:any; university_id: any; uni_reg_no: any };
     
     let isLoading = false;
     let isEditing = false;
@@ -58,22 +58,6 @@
       isLoading = true;
       try {
         const changedFields = getChangedFields(profile, originalProfile);
-        
-        if (changedFields.birthday ) {
-          const parts = changedFields.birthday.split('-');
-          const year = parseInt(parts[0]);
-          const month = parseInt(parts[1]) - 1; // Months are zero-indexed in JavaScript
-          const day = parseInt(parts[2]);
-          
-          const date = new Date();
-          date.setFullYear(year);
-          date.setMonth(month);
-          date.setDate(day);
-  
-          if (date > new Date()) {
-            throw new Error('Birthday cannot be in the future');
-          } 
-        }
   
         if (Object.keys(changedFields).length > 0) {
           await updateMyProfile(changedFields);
@@ -178,17 +162,17 @@
 
         <div>
             <label for="user_name" class="block text-gray-600 text-lg mb-1">User Name:</label>
-            <input id="user_name" bind:value={profile.user_name} on:input={handleInputChange} class="w-full  text-gray-600 text-lg border border-gray-300 bg-gray-100 rounded p-2 resize-none" disabled={!isEditing}/>
+            <input id="user_name" bind:value={profile.username} on:input={handleInputChange} class="w-full  text-gray-600 text-lg border border-gray-300 bg-gray-100 rounded p-2 resize-none" disabled={!isEditing}/>
           </div>
 
         <div>
           <label for="university" class="block text-gray-600 text-lg mb-1">University:</label>
-          <input id="university" bind:value={profile.university} on:input={handleInputChange} class="w-full  text-gray-600 text-lg border border-gray-300 bg-gray-100 rounded p-2 resize-none" disabled={!isEditing}/>
+          <input id="university" bind:value={profile.university_id} on:input={handleInputChange} class="w-full  text-gray-600 text-lg border border-gray-300 bg-gray-100 rounded p-2 resize-none" disabled={!isEditing}/>
         </div>
 
         <div>
-          <label for="uni_reg_number" class="block text-gray-600 text-lg mb-1">University Registration Number::</label>
-          <input id="uni_reg_number" bind:value={profile.uni_reg_number} on:input={handleInputChange} class="w-full  text-gray-600 text-lg border border-gray-300 bg-gray-100 rounded p-2 resize-none" disabled={!isEditing}/>
+          <label for="uni_reg_number" class="block text-gray-600 text-lg mb-1">University Registration Number:</label>
+          <input id="uni_reg_number" bind:value={profile.uni_reg_no} on:input={handleInputChange} class="w-full  text-gray-600 text-lg border border-gray-300 bg-gray-100 rounded p-2 resize-none" disabled={!isEditing}/>
         </div>
 
         {#if isEditing}

@@ -24,7 +24,7 @@
       if (username && password) {
         const response = await api.login(username, password);
         console.log('Login response:', response);
-
+        localStorage.setItem('token', response.token);
         goto('/profile');
         showToast("Login successful!", "success");
       } else {

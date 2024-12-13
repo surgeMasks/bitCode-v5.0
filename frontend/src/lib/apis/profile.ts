@@ -44,12 +44,10 @@ const api = {
   
   // Update function
   updateMyProfile: async (profile: any) => {
-    const response = await put("/user", profile, "application/json");
+    const response = await post("/user", profile, "application/json");
 
     return response.json();
   },
-
-  
 };
 
 export default api;
