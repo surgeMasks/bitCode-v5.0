@@ -83,11 +83,7 @@
     </p>
   </div>
 
-  <ToastContainer placement="bottom-right">
-    <FlatToast>
-      <div slot="icon"></div>
-      <div slot="extra"></div>
-      <div slot="close-icon"></div>
-    </FlatToast>
+  <ToastContainer placement="bottom-right" let:data={data}>
+    <FlatToast {data} /> <!-- Provider template for your toasts -->
   </ToastContainer>
 </main>

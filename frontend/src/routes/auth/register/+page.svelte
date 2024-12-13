@@ -134,7 +134,9 @@
     </div>
   </div>
 
-  <ToastContainer />
+  <ToastContainer placement="bottom-right" let:data={data}>
+    <FlatToast {data} /> <!-- Provider template for your toasts -->
+  </ToastContainer>
 </div>
 
 <style>
