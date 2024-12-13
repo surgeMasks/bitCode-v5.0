@@ -9,6 +9,6 @@
     </svg>
     <h1 class="text-3xl font-bold text-gray-800 mb-2">Payment Successful</h1>
     <p class="text-gray-600 mb-6">Thank you for your purchase! Your transaction was completed successfully.</p>
-    <a href="/" class="inline-block px-6 py-2 text-white bg-green-500 hover:bg-green-600 rounded-full">Return to Home</a>
+    <a href="/profile" class="inline-block px-6 py-2 text-white bg-green-500 hover:bg-green-600 rounded-full">Return to Home</a>
   </div>
 </main>
