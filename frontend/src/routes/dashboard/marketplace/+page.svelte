@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import api from '$lib/apis/dashboard';
 
-  import check from '$lib/components/payments.svelte'
+  import Check from '$lib/components/payments.svelte'
   let projects: { id: number; image_path: string; title: string; description: string; price: number }[] = [];
 
   let showModal = false;
@@ -17,12 +17,23 @@
 
   // Fetch projects from your API
   onMount(async () => {
-    const response = await api.getProjects();
-    if (response.ok) {
-      projects = await response.json();
-      console.log(projects);
-    } else {
-      console.error('Failed to fetch projects');
+    try {
+      const response = await api.getProjects(); // Fetch data from the API
+      if (response) {
+        // Map the API response to match the `projects` structure
+        projects = response.map((project: any) => ({
+          id: project.id,
+          image_path: project.image, // Map `image` to `image_path`
+          title: project.title,
+          description: project.description,
+          price: parseFloat(project.price), // Convert `price` from string to number
+        }));
+        console.log('Mapped Projects:', projects);
+      } else {
+        console.error('Failed to fetch projects');
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
     }
   });
 
@@ -200,9 +211,15 @@
       </div>
     {/each}
   </div>
+
   <div class="container">
   <h1>Complete Your Payment</h1>
   <p>Click the button below to proceed with your payment.</p>
-  <CheckoutButton />
-</div>  
+    <p class="text-gray-600 text-lg mb-6 text-center">
+      Click the button below to proceed with your payment.
+    </p>
+    <div class="flex justify-center">
+      <Check />
+    </div>
+  </div>  
 </main>

@@ -9,6 +9,6 @@
     </svg>
     <h1 class="text-3xl font-bold text-gray-800 mb-2">Payment Canceled</h1>
     <p class="text-gray-600 mb-6">Your payment was canceled. If you have any questions, please contact our support team.</p>
-    <a href="/profile" class="inline-block px-6 py-2 text-white bg-red-500 hover:bg-red-600 rounded-full">Return to Checkout</a>
+    <a href="/dashboard/marketplace" class="inline-block px-6 py-2 text-white bg-red-500 hover:bg-red-600 rounded-full">Return to Checkout</a>
   </div>
 </main>

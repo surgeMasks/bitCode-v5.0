@@ -12,7 +12,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/strip-complete', [CheckoutController::class, 'success']);
+Route::post('/strip-complete', [CheckoutController::class, 'sucess']);
 Route::get('/university', [UniversityController::class, 'index']);
 
 Route::controller(AuthController::class)->group(function() {
